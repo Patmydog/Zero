@@ -71,6 +71,20 @@ API keys live in environment variables (see `.env.example`), never in
 code or in git: `ANTHROPIC_API_KEY`, `DEEPGRAM_API_KEY`,
 `ELEVENLABS_API_KEY`.
 
+## Later / to revisit
+
+- **Tier 3 voice-provider alternatives** — current stack is Deepgram (ears)
+  + ElevenLabs (mouth); the seams (`juno/voice/stt.py`, `juno/voice/tts.py`)
+  make each a ~40-line swap. Shortlist discussed 2026-07-04:
+  - *Snappiest:* keep Deepgram STT, swap TTS to **Cartesia (Sonic)**.
+  - *Fewest keys:* all-Deepgram (nova STT + **Aura** TTS) or all-ElevenLabs
+    (Scribe STT + TTS) — one vendor, one env var.
+  - *Free / private / offline:* **faster-whisper** STT + **Piper** or
+    **Kokoro** TTS — no voice API keys at all.
+  - *For open-mic later:* Pipecat or LiveKit Agents as transport only
+    (keep all turns through `Agent.run_turn`); wake word via Picovoice
+    Porcupine or openWakeWord; endpointing via Silero VAD.
+
 ## Build map
 
 | Tier | What | Where |
