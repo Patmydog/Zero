@@ -1,0 +1,4 @@
+# Extra dependencies for voice mode: `python -m juno --voice`
+sounddevice>=0.4
+numpy>=1.26
+pynput>=1.7

@@ -1,0 +1,11 @@
+# Secrets — never commit keys
+.env
+
+# Juno's local state (memory, tasks, notices, audit log)
+data/
+
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+venv/
