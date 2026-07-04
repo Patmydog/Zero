@@ -1,0 +1,43 @@
+# Juno configuration. Everything tunable lives here, not in code.
+
+[assistant]
+name = "Juno"
+purpose = "A voice-first personal assistant that answers questions, keeps reminders and notes, and reaches out only when it's worth your attention."
+persona = "Warm, plain-spoken, and brief. Talk like a helpful friend, not a manual. Prefer one good sentence over three hedged ones."
+
+[model]
+name = "claude-opus-4-8"
+max_tokens = 4096
+# Used for the running cost tally in the audit log ($ per million tokens).
+input_per_mtok = 5.00
+output_per_mtok = 25.00
+
+[paths]
+data_dir = "data"
+
+[voice]
+# Which ElevenLabs voice to use. Change freely — this is a config choice, not code.
+elevenlabs_voice_id = "EXAVITQu4vr4xnSDxMaL"
+elevenlabs_model = "eleven_turbo_v2_5"
+deepgram_model = "nova-2"
+# Key to hold for push-to-talk (pynput key name).
+ptt_key = "ctrl_r"
+
+[heartbeat]
+enabled = true
+# How often the loop wakes to see if any check is due (seconds).
+tick_seconds = 30
+# Quiet hours: non-urgent notices wait; only urgent ones interrupt.
+quiet_start = "22:00"
+quiet_end = "08:00"
+
+# Scheduled checks. Each runs through the same brain; the model decides
+# whether the result is worth surfacing via the surface_notice tool.
+[[checks]]
+name = "due_reminders"
+every_minutes = 5
+prompt = "Check my task list for reminders that are due or overdue right now. If any are due, surface a notice listing them (urgent only if something is overdue by more than an hour). If nothing is due, do nothing."
+
+[safety]
+# Seconds a background (heartbeat) confirmation waits before defaulting to "no".
+confirm_timeout_seconds = 0
